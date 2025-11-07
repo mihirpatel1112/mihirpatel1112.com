@@ -21,6 +21,18 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import PreviewCard from "@/components/previewCard";
+import Hero from "@/components/hero";
+import {
+  Item,
+  ItemActions,
+  ItemContent,
+  ItemDescription,
+  ItemFooter,
+  ItemHeader,
+  ItemMedia,
+  ItemTitle,
+} from "@/components/ui/item";
+import ListItem from "@/components/listItem";
 
 const navItems = [
   { title: "Blog", link: "/blog" },
@@ -29,14 +41,26 @@ const navItems = [
   { title: "About", link: "/about" },
 ];
 
+const articlesPreview = [
+  { title: "Sample Item 1", description: "This is a sample description for item 1", url: "/item-1" },
+  { title: "Sample Item 2", description: "This is a sample description for item 2", url: "/item-2" },
+  { title: "Sample Item 3", description: "This is a sample description for item 3", url: "/item-3" },
+];
+
+
 export default function Home() {
   return (
     <Paper>
+      
+      <Nav items={navItems} />
+
+      <Hero />
+
+      <ListItem list={articlesPreview} />
+
       {/* <PreviewCard title="test" description="test" url="/"/> */}
 
-      <Footer />
-
-      {/* <Nav items={navItems}/> */}
+      {/* <Footer /> */}
 
       {/* <TypographyH1>Heading 1 Sample</TypographyH1>
       <TypographyH2>Heading 2 Sample</TypographyH2>
