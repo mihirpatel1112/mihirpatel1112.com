@@ -1,4 +1,5 @@
-import { CopyrightIcon, LinkedinIcon, GithubIcon } from "lucide-react";
+import { CopyrightIcon } from "lucide-react";
+import { SocialIcon } from "react-social-icons";
 import { TypographyP } from "./typography";
 
 export default function Footer() {
@@ -10,22 +11,8 @@ export default function Footer() {
       </div>
 
       <div className="flex flex-row items-center space-x-2">
-        <a
-          href="https://www.linkedin.com/in/mihir-patel-7b220422a/"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="bg-gray-100 p-2 rounded-full hover:shadow-2xl outline"
-        >
-          <LinkedinIcon size={20} strokeWidth={1.5} />
-        </a>
-        <a
-          href="https://github.com/mihirpatel1112"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="bg-gray-100 p-2 rounded-full hover:shadow-2xl outline"
-        >
-          <GithubIcon size={20} strokeWidth={1.5} />
-        </a>
+        <SocialIcon url="https://www.linkedin.com/in/mihir-patel-7b220422a/" />
+        <SocialIcon url="https://github.com/mihirpatel1112" />
       </div>
     </div>
   );
