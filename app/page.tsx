@@ -33,30 +33,18 @@ import {
   ItemTitle,
 } from "@/components/ui/item";
 import ListItem from "@/components/listItem";
-
-const navItems = [
-  { title: "Blog", link: "/blog" },
-  { title: "Article", link: "/article" },
-  { title: "Project", link: "/project" },
-  { title: "About", link: "/about" },
-];
-
-const articlesPreview = [
-  { title: "Sample Item 1", description: "This is a sample description for item 1", url: "/item-1" },
-  { title: "Sample Item 2", description: "This is a sample description for item 2", url: "/item-2" },
-  { title: "Sample Item 3", description: "This is a sample description for item 3", url: "/item-3" },
-];
-
+import { articles, heading } from '@/constants/articles';
 
 export default function Home() {
   return (
-    <Paper>
-      
-      <Nav items={navItems} />
-
+    <div>
       <Hero />
 
-      <ListItem list={articlesPreview} />
+      <ListItem
+        title={heading}
+        variant="outline"
+        list={articles}
+      />
 
       {/* <PreviewCard title="test" description="test" url="/"/> */}
 
@@ -67,6 +55,6 @@ export default function Home() {
       <TypographyH3>Heading 3 Sample</TypographyH3>
       <TypographyH4>Heading 4 Sample</TypographyH4>
       <TypographyP>This is a paragraph sample text.</TypographyP> */}
-    </Paper>
+    </div>
   );
 }
