@@ -15,41 +15,38 @@ import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
 
 const booksReading = [
-  { title: "Atomic Habits", author: "James Clear" },
-  { title: "The Pragmatic Programmer", author: "David Thomas & Andrew Hunt" },
-  { title: "Deep Work", author: "Cal Newport" },
+  { title: "Man's Search for Meaning", author: "Viktor Frankl" },
+  { title: "Outliers", author: "Malcolm Gladwell" },
+  { title: "Steve Jobs", author: "Walter Isaacson" },
+  { title: "Sherlock Holmes", author: "Arthur Conan Doyle" },
+  { title: "Thinking, Fast and Slow", author: "Daniel Kahneman" },
+  { title: "The Blind Watchmaker", author: "Richard Dawkins" },
+  { title: "Cosmos", author: "Carl Sagan" },
 ];
 
 const hobbies = [
-  "Photography",
-  "Hiking",
   "Reading",
   "Coding",
-  "Coffee Brewing",
-  "Travel",
+  "Cloud Technologies",
+  "Problem Solving",
+  "Learning New Tech",
+  "System Architecture",
 ];
 
 const experience = [
   {
-    role: "Senior Software Engineer",
-    company: "Tech Corp",
-    period: "2023 - Present",
+    role: "Junior Software Developer",
+    company: "Funeral Tech (HParsons Pty Ltd)",
+    period: "Nov 2024 - Present",
     description:
-      "Leading development of scalable web applications using modern technologies. Mentoring junior developers and architecting solutions for complex problems.",
+      "Managing and optimising AWS cloud infrastructure for deployment, scalability, and security of all web applications, ensuring high availability and reliability. Maintaining and enhancing internal CRM software and websites by developing clean, modular PHP backends (MVC) and modern React frontends. Working in Agile team, contributing to project timelines, documentation, knowledge base, system flow diagrams, and supporting the full development lifecycle from coding and testing to launching and post-launch support.",
   },
   {
-    role: "Full Stack Developer",
-    company: "StartUp Inc",
-    period: "2021 - 2023",
+    role: "Web Application Intern",
+    company: "Luxury Chauffeur and Tours Pty Ltd",
+    period: "Aug 2024 - Nov 2024",
     description:
-      "Built and maintained multiple web applications. Collaborated with cross-functional teams to deliver high-quality software products.",
-  },
-  {
-    role: "Junior Developer",
-    company: "Digital Solutions",
-    period: "2019 - 2021",
-    description:
-      "Developed responsive web interfaces and worked on various client projects. Gained experience in modern web technologies and best practices.",
+      "Developed and deployed a modern travel booking system using Next.js, replacing the legacy WordPress setup. Implemented CI/CD pipelines via Vercel and GitHub, achieving a 65% reduction in page load time and improved website performance and user experience. Collaborated with the SEO team to restructure and optimise website content, leading to a 40% increase in organic traffic and improving SERP rankings from page 3 to page 1 for high-value service keywords.",
   },
 ];
 
@@ -61,29 +58,16 @@ export default function Page() {
         <div className="text-center md:text-left">
           <TypographyH2>About Me</TypographyH2>
           <TypographyP className="mt-4 text-muted-foreground">
-            Hi! I&apos;m a passionate software engineer who loves building
-            elegant solutions to complex problems. When I&apos;m not coding,
-            you&apos;ll find me exploring new places, reading books, or
-            experimenting with new technologies. I believe in continuous
-            learning and sharing knowledge with the community.
+            Hi! I&apos;m Mihir Patel, a computer science graduate from the
+            University of Wollongong with a major in Cybersecurity. I&apos;m
+            currently working as a Junior Software Developer, specializing in
+            full-stack development, cloud infrastructure, and modern web
+            technologies. I hold multiple cloud certifications including AWS
+            Solutions Architect Associate and Azure AI Engineer Associate. When
+            I&apos;m not coding, you&apos;ll find me reading books on
+            technology, psychology, and science, or experimenting with new cloud
+            technologies and system architectures.
           </TypographyP>
-        </div>
-
-        <Separator />
-
-        {/* Books Section */}
-        <div className="flex flex-col gap-4">
-          <TypographyH3>Books I&apos;m Reading</TypographyH3>
-          <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-            {booksReading.map((book, idx) => (
-              <Card key={idx}>
-                <CardHeader>
-                  <CardTitle className="text-lg">{book.title}</CardTitle>
-                  <CardDescription>{book.author}</CardDescription>
-                </CardHeader>
-              </Card>
-            ))}
-          </div>
         </div>
 
         <Separator />
@@ -124,6 +108,23 @@ export default function Page() {
                     {job.description}
                   </p>
                 </CardContent>
+              </Card>
+            ))}
+          </div>
+        </div>
+
+        <Separator />
+
+        {/* Books Section */}
+        <div className="flex flex-col gap-4">
+          <TypographyH3>Books I&apos;ve Been Reading</TypographyH3>
+          <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+            {booksReading.map((book, idx) => (
+              <Card key={idx}>
+                <CardHeader>
+                  <CardTitle className="text-lg">{book.title}</CardTitle>
+                  <CardDescription>{book.author}</CardDescription>
+                </CardHeader>
               </Card>
             ))}
           </div>
