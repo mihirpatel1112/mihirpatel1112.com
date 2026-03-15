@@ -1,7 +1,12 @@
+import type { Metadata } from "next";
 import Paper from "@/components/paper";
 import { TypographyH2 } from "@/components/typography";
 import { getArticlesData } from "@/lib/articles";
 import ListItem2 from "@/components/listItem2";
+
+export const metadata = {
+  title: "Articles",
+};
 
 export default async function Page() {
   const { heading, articles } = await getArticlesData();

@@ -74,11 +74,11 @@ export default function ProjectCard({
               href={githubUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 px-2 py-1 bg-black text-white rounded-md hover:opacity-80 transition-opacity"
+              className="inline-flex items-center gap-2 px-2 py-2 bg-black text-white rounded-md hover:opacity-80 transition-opacity"
             >
               <SocialLinkIcon
                 url={githubUrl}
-                size={32}
+                size={24}
                 iconOnly
                 className="text-white"
               />
@@ -90,11 +90,11 @@ export default function ProjectCard({
               href={liveUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 px-2 py-1 bg-black text-white rounded-md hover:opacity-80 transition-opacity"
+              className="inline-flex items-center gap-2 px-2 py-2 bg-black text-white rounded-md hover:opacity-80 transition-opacity"
             >
               <SocialLinkIcon
                 url={liveUrl}
-                size={32}
+                size={24}
                 iconOnly
                 className="text-white"
               />

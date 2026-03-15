@@ -21,9 +21,9 @@ export default function Footer() {
         <TypographyP>Mihir Patel</TypographyP>
       </Link>
 
-      <div className="flex flex-row items-center space-x-2">
+      <div className="flex flex-row items-center space-x-4">
         {socialLinks.map((sl, idx) => (
-          <SocialLinkIcon key={idx} url={sl.url} size={32} />
+          <SocialLinkIcon key={idx} url={sl.url} size={24} />
         ))}
       </div>
     </div>

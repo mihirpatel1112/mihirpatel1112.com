@@ -1,9 +1,10 @@
+import type { Metadata } from "next";
 import Paper from "@/components/paper";
 
-export default function Page(){
-    return(
-        <Paper>
-            Blog
-        </Paper>
-    )
+export const metadata: Metadata = {
+  title: "Blog",
+};
+
+export default function Page() {
+  return <Paper>Blog</Paper>;
 }

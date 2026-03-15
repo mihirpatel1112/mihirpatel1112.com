@@ -18,7 +18,10 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Mihir Patel",
+  title: {
+    default: "Mihir Patel",
+    template: "%s - Mihir Patel",
+  },
   icons: {
     icon: [
       { url: "/favicon.ico" },

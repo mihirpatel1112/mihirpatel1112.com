@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import Paper from "@/components/paper";
 import {
   TypographyH2,
@@ -14,6 +15,10 @@ import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
 import { getAboutData } from "@/lib/about";
 import { SocialLinkIcon } from "@/components/social-link-icon";
+
+export const metadata = {
+  title: "About",
+};
 
 export default async function Page() {
   const { intro, hobbies, books, socialLinks } = await getAboutData();

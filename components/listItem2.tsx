@@ -1,4 +1,5 @@
-import { TypographyH3, TypographyH4, TypographyP } from "./typography";
+import { ExternalLink } from "lucide-react";
+import { TypographyH3, TypographyP } from "./typography";
 import { Separator } from "./ui/separator";
 import { breakListIntoYears } from "@/utils/date";
 
@@ -29,9 +30,22 @@ export default function ListItem2({ list }: ListItem2Props) {
             >
               <TypographyP className="shrink-0">{li.title}</TypographyP>
               <Separator className="hidden sm:block flex-1 bg-black" />
-              <TypographyP className="text-sm sm:text-base text-muted-foreground sm:text-foreground flex-shrink-0">
-                {li.dateRead}
-              </TypographyP>
+              <div className="flex items-center gap-2 shrink-0">
+                <TypographyP className="text-sm sm:text-base text-muted-foreground sm:text-foreground">
+                  {li.dateRead}
+                </TypographyP>
+                {li.url && (
+                  <a
+                    href={li.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-muted-foreground hover:text-foreground transition-colors"
+                    aria-label={`Open ${li.title}`}
+                  >
+                    <ExternalLink size={16} />
+                  </a>
+                )}
+              </div>
             </div>
           ))}
         </div>
