@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
+import Script from "next/script";
 import "./globals.css";
 import Nav from "@/components/nav";
 import { navItems } from "@/constants/nav";
@@ -37,7 +38,25 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
+      <head>
+        <Script id="theme-init" strategy="beforeInteractive">
+          {`(() => {
+            try {
+              const savedTheme = localStorage.getItem("theme");
+              const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+              const theme = savedTheme === "dark" || savedTheme === "light"
+                ? savedTheme
+                : prefersDark
+                  ? "dark"
+                  : "light";
+
+              document.documentElement.classList.toggle("dark", theme === "dark");
+              document.documentElement.style.colorScheme = theme;
+            } catch (_) {}
+          })();`}
+        </Script>
+      </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >

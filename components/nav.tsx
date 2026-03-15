@@ -2,17 +2,14 @@
 
 import {
   NavigationMenu,
-  NavigationMenuContent,
-  NavigationMenuIndicator,
   NavigationMenuItem,
   NavigationMenuLink,
   NavigationMenuList,
-  NavigationMenuTrigger,
-  NavigationMenuViewport,
 } from "@/components/ui/navigation-menu";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { ChevronLeftIcon } from "lucide-react";
+import ThemeToggle from "@/components/theme-toggle";
 
 export default function Nav({
   items,
@@ -23,7 +20,7 @@ export default function Nav({
   const isHomePage = pathname === "/" || pathname === "/home";
 
   return (
-    <div className="flex justify-between">
+    <div className="flex flex-wrap items-center justify-between gap-3">
       <NavigationMenu>
         <NavigationMenuList>
           <NavigationMenuItem>
@@ -40,17 +37,20 @@ export default function Nav({
           </NavigationMenuItem>
         </NavigationMenuList>
       </NavigationMenu>
-      <NavigationMenu>
-        <NavigationMenuList>
-          {items.map((it, idx) => (
-            <NavigationMenuItem key={idx}>
-              <NavigationMenuLink asChild>
-                <Link href={it.link}>{it.title}</Link>
-              </NavigationMenuLink>
-            </NavigationMenuItem>
-          ))}
-        </NavigationMenuList>
-      </NavigationMenu>
+      <div className="flex items-center gap-3">
+        <NavigationMenu>
+          <NavigationMenuList>
+            {items.map((it, idx) => (
+              <NavigationMenuItem key={idx}>
+                <NavigationMenuLink asChild>
+                  <Link href={it.link}>{it.title}</Link>
+                </NavigationMenuLink>
+              </NavigationMenuItem>
+            ))}
+          </NavigationMenuList>
+        </NavigationMenu>
+        <ThemeToggle />
+      </div>
     </div>
   );
 }

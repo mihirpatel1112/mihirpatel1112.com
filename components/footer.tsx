@@ -1,8 +1,8 @@
 "use client";
 
 import { CopyrightIcon } from "lucide-react";
-import { SocialIcon } from "react-social-icons";
-import { TypographyH4, TypographyP } from "./typography";
+import { SocialLinkIcon } from "@/components/social-link-icon";
+import { TypographyP } from "./typography";
 import { socialLinks } from "@/constants/socialLinks";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -21,21 +21,11 @@ export default function Footer() {
         <TypographyP>Mihir Patel</TypographyP>
       </Link>
 
-      {!isAboutPage && (
-        <div className="flex flex-row items-center space-x-2">
-          {socialLinks.map((sl, idx) => (
-            <SocialIcon
-              key={idx}
-              url={sl.url}
-              style={{ height: 32, width: 32 }}
-              bgColor="#000000"
-              fgColor="#ffffff"
-              target="_blank"
-              rel="noopener noreferrer"
-            />
-          ))}
-        </div>
-      )}
+      <div className="flex flex-row items-center space-x-2">
+        {socialLinks.map((sl, idx) => (
+          <SocialLinkIcon key={idx} url={sl.url} size={32} />
+        ))}
+      </div>
     </div>
   );
 }

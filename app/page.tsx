@@ -33,18 +33,16 @@ import {
   ItemTitle,
 } from "@/components/ui/item";
 import ListItem from "@/components/listItem";
-import { articles, heading } from '@/constants/articles';
+import { getArticlesData } from "@/lib/articles";
 
-export default function Home() {
+export default async function Home() {
+  const { heading, articles } = await getArticlesData();
+
   return (
     <div>
       <Hero />
 
-      <ListItem
-        title={heading}
-        variant="outline"
-        list={articles}
-      />
+      <ListItem title={heading} variant="outline" list={articles} />
 
       {/* <PreviewCard title="test" description="test" url="/"/> */}
 

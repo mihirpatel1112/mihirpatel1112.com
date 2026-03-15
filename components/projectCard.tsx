@@ -8,7 +8,7 @@ import {
 } from "@/components/ui/card";
 import { TypographyH3, TypographyP } from "./typography";
 import { Badge } from "./ui/badge";
-import { SocialIcon } from "react-social-icons";
+import { SocialLinkIcon } from "@/components/social-link-icon";
 
 interface ProjectCardProps {
   title: string;
@@ -76,12 +76,11 @@ export default function ProjectCard({
               rel="noopener noreferrer"
               className="inline-flex items-center gap-2 px-2 py-1 bg-black text-white rounded-md hover:opacity-80 transition-opacity"
             >
-              <SocialIcon
+              <SocialLinkIcon
                 url={githubUrl}
-                style={{ height: 32, width: 32 }}
-                bgColor="transparent"
-                fgColor="#ffffff"
-                as="span"
+                size={32}
+                iconOnly
+                className="text-white"
               />
               <span className="text-sm font-medium">View Code</span>
             </a>
@@ -93,12 +92,11 @@ export default function ProjectCard({
               rel="noopener noreferrer"
               className="inline-flex items-center gap-2 px-2 py-1 bg-black text-white rounded-md hover:opacity-80 transition-opacity"
             >
-              <SocialIcon
+              <SocialLinkIcon
                 url={liveUrl}
-                style={{ height: 32, width: 32 }}
-                bgColor="transparent"
-                fgColor="#ffffff"
-                as="span"
+                size={32}
+                iconOnly
+                className="text-white"
               />
               <span className="text-sm font-medium">View Live</span>
             </a>
