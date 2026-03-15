@@ -30,7 +30,7 @@ export default function Nav({
                   href="/"
                   className="flex flex-row gap-2 justify-center items-center"
                 >
-                  <ChevronLeftIcon /> Back to home
+                  <ChevronLeftIcon /> Back
                 </Link>
               </NavigationMenuLink>
             )}

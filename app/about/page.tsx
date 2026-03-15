@@ -13,6 +13,7 @@ import {
 } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
+import { BookOpen, Link2, Sparkles } from "lucide-react";
 import { getAboutData } from "@/lib/about";
 import { SocialLinkIcon } from "@/components/social-link-icon";
 
@@ -25,7 +26,7 @@ export default async function Page() {
 
   return (
     <Paper>
-      <div className="flex flex-col gap-8 max-w-4xl mx-auto">
+      <div className="flex flex-col gap-8 max-w-4xl mx-auto pt-8">
         {/* Header */}
         <div className="text-center md:text-left">
           <TypographyH2>About Me</TypographyH2>
@@ -41,7 +42,10 @@ export default async function Page() {
             <Separator />
             {/* Hobbies Section */}
             <div className="flex flex-col gap-4">
-              <TypographyH3>Things I Like to Do</TypographyH3>
+              <SectionHeading
+                title="Things I Like to Do"
+                IconComponent={Sparkles}
+              />
               <div className="flex flex-wrap gap-2">
                 {hobbies.map((hobby, idx) => (
                   <Badge
@@ -62,7 +66,10 @@ export default async function Page() {
             <Separator />
             {/* Books Section */}
             <div className="flex flex-col gap-4">
-              <TypographyH3>Books I&apos;ve Been Reading</TypographyH3>
+              <SectionHeading
+                title="Books I've Been Reading"
+                IconComponent={BookOpen}
+              />
               <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
                 {books.map((book, idx) => (
                   <Card key={idx}>
@@ -82,14 +89,18 @@ export default async function Page() {
           <>
             <Separator />
             <div className="flex flex-col gap-4">
-              <TypographyH3>Connect With Me</TypographyH3>
-              <div className="flex flex-wrap gap-3 justify-center sm:justify-start">
+              <SectionHeading title="Connect With Me" IconComponent={Link2} />
+              <div className="flex flex-wrap gap-3 justify-start">
                 {socialLinks.map((link, idx) => (
                   <div
                     key={`${link.url}-${idx}`}
-                    className="flex items-center justify-center rounded-xl border bg-card p-4 transition-colors hover:bg-accent"
+                    className="flex items-center justify-center rounded-xl border bg-card p-3 sm:p-4 transition-colors hover:bg-accent"
                   >
-                    <SocialLinkIcon url={link.url} size={40} />
+                    <SocialLinkIcon
+                      url={link.url}
+                      size={32}
+                      className="sm:w-10 sm:h-10"
+                    />
                   </div>
                 ))}
               </div>
@@ -110,11 +121,14 @@ function SectionHeading({
     fill?: string;
     stroke?: string;
     size?: number;
+    className?: string;
   }>;
 }) {
   return (
-    <div className="flex flex-row items-center gap-4">
-      <IconComponent size={32} />
+    <div className="flex flex-row items-center gap-3">
+      <div className="flex shrink-0 items-center justify-center rounded-lg bg-muted/80 p-2">
+        <IconComponent size={20} className="text-muted-foreground" />
+      </div>
       <TypographyH3>{title}</TypographyH3>
     </div>
   );

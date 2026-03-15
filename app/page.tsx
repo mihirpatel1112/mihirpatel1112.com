@@ -39,7 +39,7 @@ export default async function Home() {
   const { heading, articles } = await getArticlesData();
 
   return (
-    <div>
+    <Paper>
       <Hero />
 
       <ListItem title={heading} variant="outline" list={articles} />
@@ -53,6 +53,6 @@ export default async function Home() {
       <TypographyH3>Heading 3 Sample</TypographyH3>
       <TypographyH4>Heading 4 Sample</TypographyH4>
       <TypographyP>This is a paragraph sample text.</TypographyP> */}
-    </div>
+    </Paper>
   );
 }

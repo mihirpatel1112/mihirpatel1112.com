@@ -11,7 +11,7 @@ export function AdminEditorHeader() {
   }
 
   return (
-    <header className="flex items-center justify-between gap-4 py-4 border-b border-border mb-6">
+    <header className="flex items-center justify-between gap-4 py-4 border-b border-border mb-6 pt-8">
       <Link
         href="/admin/editor"
         className="text-lg font-semibold hover:underline"

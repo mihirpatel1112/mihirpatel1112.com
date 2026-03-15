@@ -13,7 +13,7 @@ export default async function Page() {
 
   return (
     <Paper>
-      <div className="flex flex-col gap-6">
+      <div className="flex flex-col gap-6 pt-8">
         {heading && (
           <TypographyH2 className="text-center md:text-left">
             {heading}
