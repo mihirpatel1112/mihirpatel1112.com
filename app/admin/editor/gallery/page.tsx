@@ -32,7 +32,10 @@ function genId() {
 function toPhotoRows(
   raw: Array<Omit<Photo, "_id"> & { id?: number }>,
 ): Photo[] {
-  return raw.map((p) => ({ ...p, _id: genId() }));
+  return raw.map((p) => ({
+    ...p,
+    _id: p.id ?? genId(),
+  }));
 }
 
 export default function GalleryEditorPage() {

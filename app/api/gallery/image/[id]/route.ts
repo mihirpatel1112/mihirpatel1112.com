@@ -22,7 +22,7 @@ export async function GET(
     }
 
     const contentType = row.content_type || "image/jpeg";
-    return new NextResponse(row.image_data as Buffer, {
+    return new NextResponse(new Blob([row.image_data]), {
       headers: {
         "Content-Type": contentType,
         "Cache-Control": "public, max-age=31536000, immutable",
