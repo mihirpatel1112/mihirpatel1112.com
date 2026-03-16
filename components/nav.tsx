@@ -90,7 +90,7 @@ export default function Nav({
           </button>
 
           {open && (
-            <div className="absolute right-0 top-11 z-50 min-w-[180px] rounded-2xl bg-background p-2 shadow-lg ring-1 ring-black/5">
+            <div className="absolute right-0 top-11 z-50 min-w-[180px] rounded-2xl border border-border bg-background p-2 shadow-lg">
               <div className="flex flex-col">
                 {items.map((it) => {
                   const active = pathname === it.link;
