@@ -1,15 +1,16 @@
 "use client";
 
+import { ChevronLeftIcon } from "lucide-react";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+
+import ThemeToggle from "@/components/theme-toggle";
 import {
   NavigationMenu,
   NavigationMenuItem,
   NavigationMenuLink,
   NavigationMenuList,
 } from "@/components/ui/navigation-menu";
-import Link from "next/link";
-import { usePathname } from "next/navigation";
-import { ChevronLeftIcon } from "lucide-react";
-import ThemeToggle from "@/components/theme-toggle";
 
 export default function Nav({
   items,

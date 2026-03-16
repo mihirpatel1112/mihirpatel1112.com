@@ -1,5 +1,5 @@
-import Paper from "@/components/paper";
 import { AdminEditorHeader } from "@/components/admin-editor-header";
+import Paper from "@/components/paper";
 
 export default function EditorLayout({
   children,

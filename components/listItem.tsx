@@ -1,3 +1,5 @@
+import { ArrowUpRightIcon } from "lucide-react";
+
 import {
   Item,
   ItemActions,
@@ -8,11 +10,11 @@ import {
   ItemMedia,
   ItemTitle,
 } from "@/components/ui/item";
-import { Button } from "./ui/button";
-import { ArrowUpRightIcon } from "lucide-react";
+import { sortListDateLatest } from "@/utils/date";
+
 import { TypographyH1, TypographyH2 } from "./typography";
 import { Badge } from "./ui/badge";
-import { sortListDateLatest } from "@/utils/date";
+import { Button } from "./ui/button";
 
 interface Article {
   title: string;

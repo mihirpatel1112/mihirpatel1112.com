@@ -1,13 +1,13 @@
 "use client";
 
 import {
-  Github,
-  Linkedin,
-  Twitter,
-  Instagram,
-  Youtube,
   ExternalLink,
+  Github,
+  Instagram,
+  Linkedin,
   type LucideIcon,
+  Twitter,
+  Youtube,
 } from "lucide-react";
 
 const URL_TO_ICON: Array<{ pattern: RegExp; Icon: LucideIcon }> = [

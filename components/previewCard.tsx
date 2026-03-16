@@ -1,3 +1,5 @@
+import { ArrowUpRightIcon } from "lucide-react";
+
 import {
   Card,
   CardAction,
@@ -7,9 +9,9 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+
 import { TypographyH2, TypographyH4 } from "./typography";
 import { Button } from "./ui/button";
-import { ArrowUpRightIcon } from "lucide-react";
 
 export default function PreviewCard({
   title,

@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+
 import { getHeroContent, updateHeroContent } from "@/lib/hero";
 
 export async function GET() {

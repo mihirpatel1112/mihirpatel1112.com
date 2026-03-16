@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+
 import { getArticlesData, setArticlesData } from "@/lib/articles";
 
 export async function GET() {

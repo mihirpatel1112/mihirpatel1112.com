@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+
 import { createSession, SESSION_COOKIE, SESSION_MAX_AGE } from "@/lib/auth";
 
 export async function POST(request) {

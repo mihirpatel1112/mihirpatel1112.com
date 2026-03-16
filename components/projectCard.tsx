@@ -1,3 +1,4 @@
+import { SocialLinkIcon } from "@/components/social-link-icon";
 import {
   Card,
   CardContent,
@@ -6,9 +7,9 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+
 import { TypographyH3, TypographyP } from "./typography";
 import { Badge } from "./ui/badge";
-import { SocialLinkIcon } from "@/components/social-link-icon";
 
 interface ProjectCardProps {
   title: string;

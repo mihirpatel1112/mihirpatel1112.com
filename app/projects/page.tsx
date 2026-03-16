@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+
 import Paper from "@/components/paper";
 import ProjectCard from "@/components/projectCard";
 import { TypographyH2 } from "@/components/typography";

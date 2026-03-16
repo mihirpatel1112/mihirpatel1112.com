@@ -1,11 +1,13 @@
 "use client";
 
 import { CopyrightIcon } from "lucide-react";
-import { SocialLinkIcon } from "@/components/social-link-icon";
-import { TypographyP } from "./typography";
-import { socialLinks } from "@/constants/socialLinks";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+
+import { SocialLinkIcon } from "@/components/social-link-icon";
+import { socialLinks } from "@/constants/socialLinks";
+
+import { TypographyP } from "./typography";
 
 export default function Footer() {
   const pathname = usePathname();

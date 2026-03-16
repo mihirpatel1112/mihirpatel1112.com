@@ -1,7 +1,9 @@
 import { ExternalLink } from "lucide-react";
+
+import { breakListIntoYears } from "@/utils/date";
+
 import { TypographyH3, TypographyP } from "./typography";
 import { Separator } from "./ui/separator";
-import { breakListIntoYears } from "@/utils/date";
 
 interface Article {
   title: string;

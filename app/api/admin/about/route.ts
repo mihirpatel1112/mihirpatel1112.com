@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+
 import { getAboutData, setAboutData } from "@/lib/about";
 
 export async function GET() {

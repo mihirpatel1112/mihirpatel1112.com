@@ -1,3 +1,9 @@
+import Footer from "@/components/footer";
+import Hero from "@/components/hero";
+import ListItem from "@/components/listItem";
+import Nav from "@/components/nav";
+import Paper from "@/components/paper";
+import PreviewCard from "@/components/previewCard";
 import {
   TypographyH1,
   TypographyH2,
@@ -5,9 +11,6 @@ import {
   TypographyH4,
   TypographyP,
 } from "@/components/typography";
-import Nav from "@/components/nav";
-import Footer from "@/components/footer";
-import Paper from "@/components/paper";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -19,9 +22,6 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import PreviewCard from "@/components/previewCard";
-import Hero from "@/components/hero";
 import {
   Item,
   ItemActions,
@@ -32,7 +32,7 @@ import {
   ItemMedia,
   ItemTitle,
 } from "@/components/ui/item";
-import ListItem from "@/components/listItem";
+import { Label } from "@/components/ui/label";
 import { getArticlesData } from "@/lib/articles";
 
 export default async function Home() {

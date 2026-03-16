@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+
 import Paper from "@/components/paper";
 
 export const metadata: Metadata = {

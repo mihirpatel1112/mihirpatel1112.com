@@ -1,21 +1,22 @@
+import { BookOpen, Link2, Sparkles } from "lucide-react";
 import type { Metadata } from "next";
+
 import Paper from "@/components/paper";
+import { SocialLinkIcon } from "@/components/social-link-icon";
 import {
   TypographyH2,
   TypographyH3,
   TypographyP,
 } from "@/components/typography";
+import { Badge } from "@/components/ui/badge";
 import {
   Card,
+  CardDescription,
   CardHeader,
   CardTitle,
-  CardDescription,
 } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
-import { BookOpen, Link2, Sparkles } from "lucide-react";
 import { getAboutData } from "@/lib/about";
-import { SocialLinkIcon } from "@/components/social-link-icon";
 
 export const metadata = {
   title: "About",
