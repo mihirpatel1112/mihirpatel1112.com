@@ -2,6 +2,7 @@
 
 import { X } from "lucide-react";
 import { useEffect, useState } from "react";
+import Masonry from "react-masonry-css";
 
 interface Photo {
   id: number;
@@ -9,6 +10,14 @@ interface Photo {
   caption: string;
   altText: string;
 }
+
+const breakpointColumnsObj = {
+  default: 4,
+  1280: 4,
+  1024: 3,
+  768: 2,
+  0: 1,
+};
 
 export default function GalleryGrid({ photos }: { photos: Photo[] }) {
   const [selected, setSelected] = useState<Photo | null>(null);
@@ -39,15 +48,18 @@ export default function GalleryGrid({ photos }: { photos: Photo[] }) {
 
   return (
     <>
-      <div className="columns-1 gap-4 sm:columns-2 lg:columns-3 xl:columns-4">
+      <Masonry
+        breakpointCols={breakpointColumnsObj}
+        className="flex w-auto -ml-4"
+        columnClassName="pl-4 bg-clip-padding"
+      >
         {photos.map((photo) => (
           <button
             key={photo.id}
             type="button"
             onClick={() => setSelected(photo)}
-            className="group mb-4 block w-full break-inside-avoid overflow-hidden rounded-2xl bg-muted/20 text-left"
+            className="group mb-4 block w-full overflow-hidden rounded-2xl bg-muted/20 text-left"
           >
-            {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
               src={photo.url}
               alt={photo.altText || photo.caption || "Gallery photo"}
@@ -62,7 +74,7 @@ export default function GalleryGrid({ photos }: { photos: Photo[] }) {
             )}
           </button>
         ))}
-      </div>
+      </Masonry>
 
       {selected && (
         <div
@@ -84,7 +96,6 @@ export default function GalleryGrid({ photos }: { photos: Photo[] }) {
               </button>
 
               <div className="overflow-hidden rounded-2xl">
-                {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
                   src={selected.url}
                   alt={selected.altText || selected.caption || "Gallery photo"}
