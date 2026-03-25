@@ -1,4 +1,5 @@
-import { BookOpen, Link2, Sparkles } from "lucide-react";
+import { notFound } from "next/navigation";
+import { Award, BookOpen, ExternalLink, Link2, Sparkles } from "lucide-react";
 import type { Metadata } from "next";
 
 import Paper from "@/components/paper";
@@ -11,19 +12,23 @@ import {
 import { Badge } from "@/components/ui/badge";
 import {
   Card,
-  CardDescription,
+  CardContent,
   CardHeader,
   CardTitle,
+  CardDescription,
 } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
 import { getAboutData } from "@/lib/about";
+import { isPageEnabled } from "@/lib/page-settings";
 
 export const metadata = {
   title: "About",
 };
 
 export default async function Page() {
-  const { intro, hobbies, books, socialLinks } = await getAboutData();
+  if (!(await isPageEnabled("about"))) notFound();
+  const { intro, hobbies, books, socialLinks, certifications } =
+    await getAboutData();
 
   return (
     <Paper>
@@ -78,6 +83,63 @@ export default async function Page() {
                       <CardTitle className="text-lg">{book.title}</CardTitle>
                       <CardDescription>{book.author}</CardDescription>
                     </CardHeader>
+                  </Card>
+                ))}
+              </div>
+            </div>
+          </>
+        )}
+
+        {certifications.length > 0 && (
+          <>
+            <Separator />
+            {/* Certifications Section */}
+            <div className="flex flex-col gap-4">
+              <SectionHeading title="Certifications" IconComponent={Award} />
+              <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+                {certifications.map((cert, idx) => (
+                  <Card
+                    key={idx}
+                    className="flex flex-col justify-between gap-0"
+                  >
+                    <CardHeader className="pb-3">
+                      {cert.url && (
+                        <div className="flex justify-end">
+                          <a
+                            href={cert.url}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            aria-label={`Verify ${cert.name}`}
+                            className="rounded-md p-1 text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
+                          >
+                            <ExternalLink size={15} />
+                          </a>
+                        </div>
+                      )}
+                      <CardTitle className="text-base leading-snug">
+                        {cert.name}
+                      </CardTitle>
+                      <CardDescription className="text-sm">
+                        {cert.issuer}
+                      </CardDescription>
+                    </CardHeader>
+
+                    {(cert.issuedDate || cert.credentialId) && (
+                      <CardContent className="pt-0">
+                        <div className="flex flex-wrap items-center gap-2 border-t pt-3">
+                          {cert.issuedDate && (
+                            <span className="rounded-md bg-muted px-2 py-0.5 text-xs text-muted-foreground">
+                              {cert.issuedDate}
+                            </span>
+                          )}
+                          {cert.credentialId && (
+                            <span className="rounded-md bg-muted px-2 py-0.5 font-mono text-xs text-muted-foreground">
+                              {cert.credentialId}
+                            </span>
+                          )}
+                        </div>
+                      </CardContent>
+                    )}
                   </Card>
                 ))}
               </div>

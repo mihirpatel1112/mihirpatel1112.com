@@ -21,11 +21,24 @@ interface Book {
   author: string;
 }
 
+interface Certification {
+  name: string;
+  issuer: string;
+  issuedDate: string;
+  credentialId: string;
+  url: string;
+}
+
+interface CertificationRow extends Certification {
+  _id: number;
+}
+
 interface AboutData {
   intro: string;
   hobbies: string[];
   books: Book[];
   socialLinks: SocialLink[];
+  certifications: Certification[];
 }
 
 interface SocialLink {
@@ -37,16 +50,21 @@ interface SocialLinkRow extends SocialLink {
   _id: number;
 }
 
-let nextSocialId = 1;
+let nextRowId = 1;
 
 function toSocialLinkRows(links: SocialLink[]): SocialLinkRow[] {
-  return links.map((link) => ({ ...link, _id: nextSocialId++ }));
+  return links.map((link) => ({ ...link, _id: nextRowId++ }));
+}
+
+function toCertificationRows(certs: Certification[]): CertificationRow[] {
+  return certs.map((cert) => ({ ...cert, _id: nextRowId++ }));
 }
 
 export default function AboutEditorPage() {
   const [intro, setIntro] = useState("");
   const [hobbiesInput, setHobbiesInput] = useState("");
   const [books, setBooks] = useState<Book[]>([]);
+  const [certifications, setCertifications] = useState<CertificationRow[]>([]);
   const [socialLinks, setSocialLinks] = useState<SocialLinkRow[]>([]);
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
@@ -61,6 +79,7 @@ export default function AboutEditorPage() {
           setIntro(data.intro ?? "");
           setHobbiesInput((data.hobbies ?? []).join(", "));
           setBooks(data.books ?? []);
+          setCertifications(toCertificationRows(data.certifications ?? []));
           setSocialLinks(toSocialLinkRows(data.socialLinks ?? []));
         }
       } catch {
@@ -86,10 +105,49 @@ export default function AboutEditorPage() {
     );
   }
 
+  function addCertification() {
+    setCertifications((prev) => [
+      ...prev,
+      {
+        _id: nextRowId++,
+        name: "",
+        issuer: "",
+        issuedDate: "",
+        credentialId: "",
+        url: "",
+      },
+    ]);
+  }
+
+  function removeCertification(id: number) {
+    setCertifications((prev) => prev.filter((c) => c._id !== id));
+  }
+
+  function updateCertification(
+    id: number,
+    field: keyof Certification,
+    value: string,
+  ) {
+    setCertifications((prev) =>
+      prev.map((c) => (c._id === id ? { ...c, [field]: value } : c)),
+    );
+  }
+
+  function moveCertification(index: number, direction: "up" | "down") {
+    const toIndex = direction === "up" ? index - 1 : index + 1;
+    if (toIndex < 0 || toIndex >= certifications.length) return;
+    setCertifications((prev) => {
+      const next = [...prev];
+      const [removed] = next.splice(index, 1);
+      next.splice(toIndex, 0, removed);
+      return next;
+    });
+  }
+
   function addSocialLink() {
     setSocialLinks((prev) => [
       ...prev,
-      { _id: nextSocialId++, label: "", url: "" },
+      { _id: nextRowId++, label: "", url: "" },
     ]);
   }
 
@@ -137,6 +195,15 @@ export default function AboutEditorPage() {
         intro,
         hobbies: parseHobbies(hobbiesInput),
         books,
+        certifications: certifications.map(
+          ({ name, issuer, issuedDate, credentialId, url }) => ({
+            name,
+            issuer,
+            issuedDate,
+            credentialId,
+            url,
+          }),
+        ),
         socialLinks: socialLinks.map(({ label, url }) => ({ label, url })),
       };
       const res = await fetch("/api/admin/about", {
@@ -151,6 +218,7 @@ export default function AboutEditorPage() {
       setIntro(data.intro ?? "");
       setHobbiesInput((data.hobbies ?? []).join(", "));
       setBooks(data.books ?? []);
+      setCertifications(toCertificationRows(data.certifications ?? []));
       setSocialLinks(toSocialLinkRows(data.socialLinks ?? []));
     } catch (err) {
       setError(
@@ -183,7 +251,8 @@ export default function AboutEditorPage() {
           <div>
             <h1 className="text-2xl font-semibold">Edit About Page</h1>
             <p className="text-muted-foreground text-sm">
-              Edit the intro, hobbies, books, and social links sections
+              Edit the intro, hobbies, books, certifications, and social links
+              sections
             </p>
           </div>
         </div>
@@ -269,6 +338,134 @@ export default function AboutEditorPage() {
                           placeholder="Author name"
                         />
                       </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+
+              <div className="space-y-4">
+                <div className="flex items-center justify-between">
+                  <Label>Certifications</Label>
+                  <Button
+                    type="button"
+                    variant="outline"
+                    size="sm"
+                    onClick={addCertification}
+                  >
+                    <Plus className="size-4" />
+                    Add Certification
+                  </Button>
+                </div>
+
+                {certifications.map((cert, index) => (
+                  <div
+                    key={cert._id}
+                    className="rounded-lg border p-4 space-y-3"
+                  >
+                    <div className="flex items-center justify-between gap-2">
+                      <div className="flex items-center gap-1">
+                        <Button
+                          type="button"
+                          variant="ghost"
+                          size="icon-sm"
+                          onClick={() => moveCertification(index, "up")}
+                          disabled={index === 0}
+                          aria-label="Move certification up"
+                        >
+                          <ChevronUp className="size-4" />
+                        </Button>
+                        <Button
+                          type="button"
+                          variant="ghost"
+                          size="icon-sm"
+                          onClick={() => moveCertification(index, "down")}
+                          disabled={index === certifications.length - 1}
+                          aria-label="Move certification down"
+                        >
+                          <ChevronDown className="size-4" />
+                        </Button>
+                        <span className="ml-1 text-sm text-muted-foreground">
+                          #{index + 1}
+                        </span>
+                      </div>
+                      <Button
+                        type="button"
+                        variant="ghost"
+                        size="icon-sm"
+                        onClick={() => removeCertification(cert._id)}
+                        className="text-destructive"
+                        aria-label="Remove certification"
+                      >
+                        <Trash2 className="size-4" />
+                      </Button>
+                    </div>
+                    <div className="grid gap-3 sm:grid-cols-2">
+                      <div className="flex flex-col gap-2">
+                        <Label>Certification Name</Label>
+                        <Input
+                          value={cert.name}
+                          onChange={(e) =>
+                            updateCertification(
+                              cert._id,
+                              "name",
+                              e.target.value,
+                            )
+                          }
+                          placeholder="AWS Solutions Architect"
+                        />
+                      </div>
+                      <div className="flex flex-col gap-2">
+                        <Label>Issuing Organization</Label>
+                        <Input
+                          value={cert.issuer}
+                          onChange={(e) =>
+                            updateCertification(
+                              cert._id,
+                              "issuer",
+                              e.target.value,
+                            )
+                          }
+                          placeholder="Amazon Web Services"
+                        />
+                      </div>
+                      <div className="flex flex-col gap-2">
+                        <Label>Issue Date</Label>
+                        <Input
+                          value={cert.issuedDate}
+                          onChange={(e) =>
+                            updateCertification(
+                              cert._id,
+                              "issuedDate",
+                              e.target.value,
+                            )
+                          }
+                          placeholder="Jan 2024"
+                        />
+                      </div>
+                      <div className="flex flex-col gap-2">
+                        <Label>Credential ID</Label>
+                        <Input
+                          value={cert.credentialId}
+                          onChange={(e) =>
+                            updateCertification(
+                              cert._id,
+                              "credentialId",
+                              e.target.value,
+                            )
+                          }
+                          placeholder="ABC123XYZ"
+                        />
+                      </div>
+                    </div>
+                    <div className="flex flex-col gap-2">
+                      <Label>Credential URL</Label>
+                      <Input
+                        value={cert.url}
+                        onChange={(e) =>
+                          updateCertification(cert._id, "url", e.target.value)
+                        }
+                        placeholder="https://www.credly.com/badges/..."
+                      />
                     </div>
                   </div>
                 ))}

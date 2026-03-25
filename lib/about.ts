@@ -10,22 +10,37 @@ export interface AboutSocialLink {
   url: string;
 }
 
+export interface AboutCertification {
+  name: string;
+  issuer: string;
+  issuedDate: string;
+  credentialId: string;
+  url: string;
+}
+
 export interface AboutData {
   intro: string;
   hobbies: string[];
   books: AboutBook[];
   socialLinks: AboutSocialLink[];
+  certifications: AboutCertification[];
 }
 
 export async function getAboutData(): Promise<AboutData> {
-  const [configRes, hobbiesRes, booksRes, socialLinksRes] = await Promise.all([
-    pool.query("SELECT intro FROM about_config LIMIT 1"),
-    pool.query("SELECT name FROM about_hobbies ORDER BY id"),
-    pool.query("SELECT title, author FROM about_books ORDER BY id"),
-    pool.query(
-      "SELECT label, url FROM about_social_links ORDER BY sort_order ASC NULLS LAST, id ASC",
-    ),
-  ]);
+  const [configRes, hobbiesRes, booksRes, socialLinksRes, certificationsRes] =
+    await Promise.all([
+      pool.query("SELECT intro FROM about_config LIMIT 1"),
+      pool.query("SELECT name FROM about_hobbies ORDER BY id"),
+      pool.query("SELECT title, author FROM about_books ORDER BY id"),
+      pool.query(
+        "SELECT label, url FROM about_social_links ORDER BY sort_order ASC NULLS LAST, id ASC",
+      ),
+      pool
+        .query(
+          "SELECT name, issuer, issued_date, credential_id, url FROM about_certifications ORDER BY sort_order ASC NULLS LAST, id ASC",
+        )
+        .catch(() => ({ rows: [] })),
+    ]);
 
   const intro = (configRes.rows[0]?.intro as string) ?? "";
   const hobbies = hobbiesRes.rows.map((r) => r.name ?? "");
@@ -37,12 +52,19 @@ export async function getAboutData(): Promise<AboutData> {
     label: r.label ?? "",
     url: r.url ?? "",
   }));
+  const certifications = certificationsRes.rows.map((r) => ({
+    name: r.name ?? "",
+    issuer: r.issuer ?? "",
+    issuedDate: r.issued_date ?? "",
+    credentialId: r.credential_id ?? "",
+    url: r.url ?? "",
+  }));
 
-  return { intro, hobbies, books, socialLinks };
+  return { intro, hobbies, books, socialLinks, certifications };
 }
 
 export async function setAboutData(data: AboutData): Promise<AboutData> {
-  const { intro, hobbies, books, socialLinks } = data;
+  const { intro, hobbies, books, socialLinks, certifications } = data;
   const client = await pool.connect();
 
   try {
@@ -90,6 +112,25 @@ export async function setAboutData(data: AboutData): Promise<AboutData> {
         await client.query(
           "INSERT INTO about_social_links (label, url, sort_order) VALUES ($1, $2, $3)",
           [label, url, index],
+        );
+      }
+    }
+
+    await client.query("DELETE FROM about_certifications");
+    for (const [index, cert] of certifications.entries()) {
+      const name = cert.name.trim();
+      const issuer = cert.issuer.trim();
+      if (name || issuer) {
+        await client.query(
+          "INSERT INTO about_certifications (name, issuer, issued_date, credential_id, url, sort_order) VALUES ($1, $2, $3, $4, $5, $6)",
+          [
+            name,
+            issuer,
+            cert.issuedDate.trim(),
+            cert.credentialId.trim(),
+            cert.url.trim(),
+            index,
+          ],
         );
       }
     }

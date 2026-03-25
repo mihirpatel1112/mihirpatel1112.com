@@ -1,15 +1,18 @@
+import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 
 import Paper from "@/components/paper";
 import ProjectCard from "@/components/projectCard";
 import { TypographyH2 } from "@/components/typography";
 import { getProjectsData } from "@/lib/projects";
+import { isPageEnabled } from "@/lib/page-settings";
 
 export const metadata = {
   title: "Projects",
 };
 
 export default async function Page() {
+  if (!(await isPageEnabled("projects"))) notFound();
   const { heading, projects } = await getProjectsData();
 
   return (

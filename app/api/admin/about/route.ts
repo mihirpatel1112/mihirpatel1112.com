@@ -42,6 +42,24 @@ export async function PUT(request: Request) {
               url: String(link.url ?? ""),
             }))
           : current.socialLinks,
+      certifications:
+        body.certifications !== undefined && Array.isArray(body.certifications)
+          ? body.certifications.map(
+              (c: {
+                name?: string;
+                issuer?: string;
+                issuedDate?: string;
+                credentialId?: string;
+                url?: string;
+              }) => ({
+                name: String(c.name ?? ""),
+                issuer: String(c.issuer ?? ""),
+                issuedDate: String(c.issuedDate ?? ""),
+                credentialId: String(c.credentialId ?? ""),
+                url: String(c.url ?? ""),
+              }),
+            )
+          : current.certifications,
     });
 
     return NextResponse.json(data);

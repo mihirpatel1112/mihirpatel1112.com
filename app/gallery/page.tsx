@@ -1,15 +1,17 @@
-import type { Metadata } from "next";
+import { notFound } from "next/navigation";
 
 import GalleryGrid from "@/components/gallery-grid";
 import Paper from "@/components/paper";
 import { TypographyH2 } from "@/components/typography";
 import { getGalleryData } from "@/lib/gallery";
+import { isPageEnabled } from "@/lib/page-settings";
 
 export const metadata = {
   title: "Gallery",
 };
 
 export default async function Page() {
+  if (!(await isPageEnabled("gallery"))) notFound();
   const { heading, photos } = await getGalleryData();
 
   return (

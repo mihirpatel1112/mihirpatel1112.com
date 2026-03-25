@@ -8,6 +8,7 @@ import Footer from "@/components/footer";
 import Nav from "@/components/nav";
 import Paper from "@/components/paper";
 import { navItems } from "@/constants/nav";
+import { getAllPageSettings } from "@/lib/page-settings";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -39,11 +40,18 @@ export const metadata: Metadata = {
 
 export const dynamic = "force-dynamic";
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const pageSettings = await getAllPageSettings();
+  const visibleNavItems = navItems.filter((item) => {
+    const slug = item.link.replace(/^\//, "");
+    const setting = pageSettings.find((s) => s.slug === slug);
+    return setting ? setting.enabled : true;
+  });
+
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
@@ -68,7 +76,7 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         <Paper>
-          <Nav items={navItems} />
+          <Nav items={visibleNavItems} />
           {children}
           <Footer />
         </Paper>
