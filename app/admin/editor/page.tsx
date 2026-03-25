@@ -54,10 +54,6 @@ function safePageHref(path: string): string {
   return /[\[\]]/.test(p) ? "/" : p;
 }
 
-/**
- * Admin editor URL: only the first path segment (e.g. /blog/... → /admin/editor/blog).
- * Avoids nested junk and matches app/admin/editor/<name>/page.tsx.
- */
 function getEditorPath(pagePath: string): string {
   const path = toPublicPath(pagePath);
   if (path === "/") return "/admin/editor/hero";
@@ -87,7 +83,6 @@ export default function EditorPage() {
         if (!pagesRes.ok) throw new Error("Failed to fetch pages");
         const pagesData = await pagesRes.json();
         const raw: PageInfo[] = pagesData.pages ?? [];
-        // Never feed <Link> literal dynamic segments (e.g. /blog/[slug]); dedupe by public path
         const seen = new Set<string>();
         const safe: PageInfo[] = [];
         for (const p of raw) {

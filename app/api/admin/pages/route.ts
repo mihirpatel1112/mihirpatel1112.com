@@ -25,7 +25,6 @@ async function findPages(
         entry.name === "page.ts"
       ) {
         const routePath = basePath || "/";
-        // Next.js <Link> cannot use literal dynamic segments like /blog/[slug]
         if (/\[/.test(routePath)) {
           continue;
         }
