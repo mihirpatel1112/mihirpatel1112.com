@@ -7,6 +7,8 @@ import { Badge } from "@/components/ui/badge";
 import { getPublishedBlogPosts } from "@/lib/blog";
 import { isPageEnabled } from "@/lib/page-settings";
 
+export const dynamic = "force-dynamic";
+
 export const metadata = {
   title: "Blog",
 };
