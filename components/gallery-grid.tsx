@@ -60,12 +60,15 @@ export default function GalleryGrid({ photos }: { photos: Photo[] }) {
             onClick={() => setSelected(photo)}
             className="group mb-4 block w-full overflow-hidden rounded-2xl bg-muted/20 text-left"
           >
-            <img
-              src={photo.url}
-              alt={photo.altText || photo.caption || "Gallery photo"}
-              loading="lazy"
-              className="h-auto w-full rounded-2xl object-cover transition duration-300 group-hover:scale-[1.015]"
-            />
+            <div className="overflow-hidden rounded-2xl">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src={`/api/gallery/thumbnail/${photo.id}`}
+                alt={photo.altText || photo.caption || "Gallery photo"}
+                loading="lazy"
+                className="w-full h-auto rounded-2xl transition duration-300 group-hover:scale-[1.015]"
+              />
+            </div>
 
             {photo.caption && (
               <div className="px-1 pt-2">
@@ -96,8 +99,9 @@ export default function GalleryGrid({ photos }: { photos: Photo[] }) {
               </button>
 
               <div className="overflow-hidden rounded-2xl">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
-                  src={selected.url}
+                  src={`/api/gallery/full/${selected.id}`}
                   alt={selected.altText || selected.caption || "Gallery photo"}
                   className="max-h-[88vh] w-full rounded-2xl object-contain"
                 />
