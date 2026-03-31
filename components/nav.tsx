@@ -38,21 +38,21 @@ export default function Nav({
   }, [open]);
 
   return (
-    <nav className="w-full bg-background">
-      <div className="mx-auto flex h-14 items-center justify-between px-4">
+    <nav className="bg-background w-full">
+      <div className="flex justify-between items-center mx-auto px-4 h-14">
         <div className="flex items-center gap-3">
           {!isHomePage && (
             <Link
               href="/"
-              className="inline-flex items-center gap-1 text-sm text-muted-foreground transition-colors hover:text-foreground"
+              className="inline-flex items-center gap-1 text-muted-foreground hover:text-foreground text-sm transition-colors"
             >
-              <ChevronLeftIcon className="h-4 w-4" />
-              Back
+              <ChevronLeftIcon className="w-4 h-4" />
+              Home
             </Link>
           )}
         </div>
 
-        <div className="hidden items-center gap-6 md:flex">
+        <div className="hidden md:flex items-center gap-6">
           {items.map((it) => {
             const active = pathname === it.link;
 
@@ -75,22 +75,22 @@ export default function Nav({
 
         <div
           ref={menuRef}
-          className="relative flex items-center gap-2 md:hidden"
+          className="md:hidden relative flex items-center gap-2"
         >
           <ThemeToggle />
 
           <button
             type="button"
             onClick={() => setOpen((prev) => !prev)}
-            className="inline-flex h-9 w-9 items-center justify-center rounded-md text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
+            className="inline-flex justify-center items-center hover:bg-muted rounded-md w-9 h-9 text-muted-foreground hover:text-foreground transition-colors"
             aria-label="Toggle menu"
             aria-expanded={open}
           >
-            {open ? <X className="h-4 w-4" /> : <Menu className="h-4 w-4" />}
+            {open ? <X className="w-4 h-4" /> : <Menu className="w-4 h-4" />}
           </button>
 
           {open && (
-            <div className="absolute right-0 top-11 z-50 min-w-[180px] rounded-2xl border border-border bg-background p-2 shadow-lg">
+            <div className="top-11 right-0 z-50 absolute bg-background shadow-lg p-2 border border-border rounded-2xl min-w-[180px]">
               <div className="flex flex-col">
                 {items.map((it) => {
                   const active = pathname === it.link;
