@@ -1,4 +1,3 @@
-import DOMPurify from "isomorphic-dompurify";
 import { ArrowLeft, Calendar, Tag } from "lucide-react";
 import type { Metadata } from "next";
 import Link from "next/link";
@@ -42,33 +41,6 @@ export default async function BlogPostPage({ params }: Props) {
 
   if (!post || !post.published) notFound();
 
-  const safeHtml = DOMPurify.sanitize(post.content, {
-    ALLOWED_TAGS: [
-      "p",
-      "br",
-      "strong",
-      "em",
-      "s",
-      "u",
-      "del",
-      "h1",
-      "h2",
-      "h3",
-      "h4",
-      "h5",
-      "h6",
-      "ul",
-      "ol",
-      "li",
-      "blockquote",
-      "pre",
-      "code",
-      "a",
-      "hr",
-    ],
-    ALLOWED_ATTR: ["href", "target", "rel", "class"],
-  });
-
   return (
     <Paper>
       <div className="max-w-2xl mx-auto py-8 space-y-8">
@@ -109,7 +81,7 @@ export default async function BlogPostPage({ params }: Props) {
 
         <div
           className="blog-content prose prose-neutral dark:prose-invert max-w-none"
-          dangerouslySetInnerHTML={{ __html: safeHtml }}
+          dangerouslySetInnerHTML={{ __html: post.content }}
         />
       </div>
     </Paper>
