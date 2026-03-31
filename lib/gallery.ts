@@ -22,17 +22,23 @@ export async function getGalleryData(): Promise<GalleryData> {
     const [configRes, photosRes] = await Promise.all([
       pool.query("SELECT heading FROM gallery_config LIMIT 1"),
       pool.query(
-        "SELECT id, url, image_data, COALESCE(alt_text, '') as \"altText\" FROM gallery ORDER BY sort_order ASC NULLS LAST, id ASC",
+        `SELECT g.id, g.url, g.image_data, COALESCE(g.alt_text, '') as "altText",
+                CASE 
+                  WHEN EXISTS(SELECT 1 FROM gallery_variants WHERE gallery_id = g.id) THEN true
+                  WHEN g.image_data IS NOT NULL THEN true
+                  ELSE false
+                END as has_image
+         FROM gallery g 
+         ORDER BY g.sort_order ASC NULLS LAST, g.id ASC`,
       ),
     ]);
 
     const heading =
       (configRes.rows[0]?.heading as string) ?? DEFAULT_GALLERY.heading;
     const photos = photosRes.rows.map((r) => {
-      const url =
-        r.image_data != null
-          ? `/api/gallery/image/${r.id}`
-          : ((r.url as string) ?? "");
+      const url = r.has_image
+        ? `/api/gallery/image/${r.id}`
+        : ((r.url as string) ?? "");
       return {
         id: r.id,
         url,

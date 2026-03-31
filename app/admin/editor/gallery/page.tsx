@@ -238,7 +238,7 @@ export default function GalleryEditorPage() {
                       </Label>
                       <input
                         type="file"
-                        accept="image/jpeg,image/png,image/gif,image/webp"
+                        accept="image/jpeg,image/png,image/gif,image/webp,image/heic,image/heif"
                         disabled={uploadingId === photo._id}
                         className="block w-full text-sm text-muted-foreground file:mr-4 file:rounded-md file:border-0 file:bg-primary file:px-4 file:py-2 file:text-sm file:font-medium file:text-primary-foreground file:cursor-pointer hover:file:bg-primary/90"
                         onChange={async (e) => {
@@ -280,11 +280,11 @@ export default function GalleryEditorPage() {
                       />
                     </div>
 
-                    {photo.url && (
+                    {photo.url && photo.id && (
                       <div className="rounded border overflow-hidden max-w-[200px]">
                         {/* eslint-disable-next-line @next/next/no-img-element */}
                         <img
-                          src={photo.url}
+                          src={`/api/gallery/thumbnail/${photo.id}`}
                           alt={photo.altText || "Preview"}
                           className="w-full h-auto object-cover"
                           onError={(e) => {

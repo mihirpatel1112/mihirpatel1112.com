@@ -3,7 +3,7 @@ import { NextResponse } from "next/server";
 import pool from "@/lib/db";
 
 export async function GET(
-  request: Request,
+  _request: Request,
   { params }: { params: Promise<{ id: string }> },
 ) {
   const id = parseInt((await params).id, 10);
@@ -12,28 +12,27 @@ export async function GET(
   }
 
   try {
-    // Get size parameter from query string
-    const url = new URL(request.url);
-    const size = (url.searchParams.get("size") || "medium") as
-      | "thumbnail"
-      | "medium"
-      | "full";
+    let row;
 
-    // Validate size parameter
-    if (!["thumbnail", "medium", "full"].includes(size)) {
-      return new NextResponse(null, { status: 400 });
-    }
-
-    // Try to get the variant first
+    // Try to get thumbnail variant
     const variantResult = await pool.query(
       "SELECT image_data, content_type FROM gallery_variants WHERE gallery_id = $1 AND variant_type = $2",
-      [id, size],
+      [id, "thumbnail"],
     );
 
-    let row = variantResult.rows[0];
+    row = variantResult.rows[0];
 
-    // Fallback: if no variant exists yet, try to get from old image_data column
-    if (!row) {
+    // If no thumbnail, try full variant
+    if (!row?.image_data) {
+      const fullResult = await pool.query(
+        "SELECT image_data, content_type FROM gallery_variants WHERE gallery_id = $1 AND variant_type = $2",
+        [id, "full"],
+      );
+      row = fullResult.rows[0];
+    }
+
+    // If no variant, try old image_data column (backward compatibility)
+    if (!row?.image_data) {
       const fallbackResult = await pool.query(
         "SELECT image_data, content_type FROM gallery WHERE id = $1 AND image_data IS NOT NULL",
         [id],
