@@ -6,8 +6,10 @@ import { notFound } from "next/navigation";
 
 import Paper from "@/components/paper";
 import { Badge } from "@/components/ui/badge";
-import { getBlogPostBySlug, getPublishedBlogPosts } from "@/lib/blog";
+import { getBlogPostBySlug } from "@/lib/blog";
 import { isPageEnabled } from "@/lib/page-settings";
+
+export const dynamic = "force-dynamic";
 
 interface Props {
   params: Promise<{ slug: string }>;
@@ -15,17 +17,12 @@ interface Props {
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
-  const post = await getBlogPostBySlug(slug);
+  const post = await getBlogPostBySlug(slug).catch(() => null);
   if (!post) return { title: "Not Found" };
   return {
     title: post.title,
     description: post.excerpt || undefined,
   };
-}
-
-export async function generateStaticParams() {
-  const posts = await getPublishedBlogPosts();
-  return posts.map((p) => ({ slug: p.slug }));
 }
 
 function formatDate(iso: string) {
